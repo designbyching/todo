@@ -123,13 +123,102 @@ h1 {
   background-color: #c82333;
 }
 
+/* Slideshow Styles */
+.slideshow-container {
+  max-width: 900px; /* Matches 3:2 ratio */
+  margin: 20px auto;
+  position: relative;
+  aspect-ratio: 3 / 2; /* Fixed 3:2 ratio */
+  width: 100%; /* Responsive width */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain 3:2 ratio */
+  border-radius: 8px;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Preload images to prevent loading delays */
+.slide img {
+  content: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"),
+    url("https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"),
+    url("https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"),
+    url("https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"),
+    url("https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"),
+    url("https://images.unsplash.com/photo-1469474968028-566ce2e7e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80");
+}
+
+/* Navigation Buttons */
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Mobile View */
 @media (max-width: 768px) {
   .board {
     flex-direction: column;
     align-items: center;
+    gap: 20px; /* Consistent spacing between columns */
   }
 
   .column {
     width: 90%;
+    margin: 0 auto;
+    /* Removed transform: rotate to keep columns straight */
+  }
+
+  .slideshow-container {
+    width: 100%; /* Fit viewport */
+    max-width: 100%; /* Prevent overflow */
+    aspect-ratio: 3 / 2; /* Maintain ratio */
+    margin: 20px 0; /* Consistent spacing */
+  }
+
+  .prev,
+  .next {
+    padding: 8px; /* Smaller buttons for mobile */
+    font-size: 1em;
   }
 }

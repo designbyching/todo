@@ -1,7 +1,8 @@
-// Load tasks from localStorage when the page loads
+// Load tasks and initialize slideshow when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadTasks();
   setupDragAndDrop();
+  initializeSlideshow();
 });
 
 // Add a new task
@@ -138,4 +139,35 @@ function setupDragAndDrop() {
       },
     },
   });
+}
+
+// Slideshow Functionality
+let currentSlide = 0;
+const slides = document.querySelectorAll(".slide");
+const totalSlides = slides.length;
+
+function initializeSlideshow() {
+  // Show the first slide
+  slides[0].classList.add("active");
+  // Auto-cycle every 5 seconds
+  setInterval(() => {
+    changeSlide(1);
+  }, 5000);
+}
+
+function showSlide(index) {
+  // Normalize index
+  if (index >= totalSlides) index = 0;
+  else if (index < 0) index = totalSlides - 1;
+
+  // Remove active class from current slide
+  slides[currentSlide].classList.remove("active");
+
+  // Update current slide
+  currentSlide = index;
+  slides[currentSlide].classList.add("active");
+}
+
+function changeSlide(direction) {
+  showSlide(currentSlide + direction);
 }
